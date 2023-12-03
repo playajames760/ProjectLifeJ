@@ -1,0 +1,5 @@
+name: ProjectLife
+version: '${project.version}'
+main: me.playajames.projectlife.ProjectLife
+api-version: '1.20'
+depends: [commandapi]
