@@ -1,5 +1,7 @@
 package me.playajames.projectlife.common.ollama;
-import de.leonhard.storage.Json;
+
+import me.playajames.projectlife.ProjectLife;
+import org.bukkit.Bukkit;
 
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -7,22 +9,21 @@ public class OllamaCharacterManager {
 
     private static ConcurrentHashMap<String, OllamaCharacter> characterMap = new ConcurrentHashMap<>();
 
-    /*
+    /**
      * Creates a new OllamaCharacter instance and adds it to the conversations map.
      *
-     * @param characterId The unique characterId to identify this character.
-     * @param instruction The initial instruction/prompt for the character.
-     * @param context Any additional context to provide to the character.
-     * @param messages A JsonObject containing any previous messages with the character.
+     * @param characterId The unique characterId to identify this character, must match character in characters.yml.
      * @return The newly created OllamaCharacter instance.
      */
-    public static OllamaCharacter createCharacter(String characterId, int generateEmotionCountMax, int messageHistoryCount) {
-        OllamaCharacter character = new OllamaCharacter(characterId, generateEmotionCountMax, messageHistoryCount);
+    public static OllamaCharacter createCharacter(String characterId) {
+        ProjectLife.getPlugin(ProjectLife.class).getLogger().info("Creating ollama character('" + characterId + "')...");
+        OllamaCharacter character = new OllamaCharacter(characterId);
         characterMap.put(characterId, character);
+        ProjectLife.getPlugin(ProjectLife.class).getLogger().info("Created character('" + characterId + "') successfully.");
         return character;
     }
 
-    /*
+    /**
      * Removes the character with the given characterId from the conversations map.
      *
      * @param characterId The characterId of the character to destroy.
@@ -33,7 +34,7 @@ public class OllamaCharacterManager {
         }
     }
 
-    /*
+    /**
      * Gets the OllamaCharacter instance for the given characterId.
      *
      * @param characterId The characterId of the character to retrieve.

@@ -1,1 +1,2 @@
 ollama_curl: http://localhost:8080
+ollama_debug: false
