@@ -1,10 +1,10 @@
 package me.playajames.projectlife.common.commands;
 
-import dev.jorel.commandapi.annotations.Alias;
-import dev.jorel.commandapi.annotations.Command;
-import dev.jorel.commandapi.annotations.Default;
-import dev.jorel.commandapi.annotations.Help;
+import dev.jorel.commandapi.annotations.*;
 import dev.jorel.commandapi.annotations.arguments.AGreedyStringArgument;
+import dev.jorel.commandapi.annotations.arguments.ALiteralArgument;
+import dev.jorel.commandapi.annotations.arguments.AMultiLiteralArgument;
+import dev.jorel.commandapi.annotations.arguments.AStringArgument;
 import io.github.amithkoujalgi.ollama4j.core.exceptions.OllamaBaseException;
 import me.playajames.projectlife.ProjectLife;
 import me.playajames.projectlife.common.ollama.OllamaCharacter;
@@ -25,15 +25,26 @@ public class RojiCommand {
         ProjectLife.newChain()
                         .async(() -> {
                             try {
-                                sender.sendMessage("Roji: " + roji.chat(sender.getName(), message));
-                            } catch (OllamaBaseException e) {
-                                RojiCommand.chat(sender, message);
-                            } catch (IOException | InterruptedException e) {
+                                String response = roji.chat(sender.getName(), message);
+                                if (response != null)
+                                    sender.sendMessage("Roji: " + response);
+                            } catch (OllamaBaseException | IOException | InterruptedException e) {
                                 throw new RuntimeException(e);
                             }
                         })
                 .execute();
 
+    }
+
+    @Subcommand("clearmessages")
+    public static void clearMessages(CommandSender sender, @AStringArgument() String characterId) {
+        OllamaCharacter ollamaCharacter = OllamaCharacterManager.getCharacter(characterId);
+        if (ollamaCharacter != null) {
+            ollamaCharacter.ollamaPrompt.getMessages().clear();
+            sender.sendMessage(characterId + "'s message memory has been cleared.");
+        } else {
+            sender.sendMessage("Could not find character with that ID.");
+        }
     }
 
 

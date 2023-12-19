@@ -1,0 +1,31 @@
+content: "
+    ### Instruction:
+    {instruction}
+
+    ### Input:
+    Character:
+    {character}
+
+    Scenario:
+    {scenario}
+
+    Location:
+    {location}
+
+    {characterId}'s Feelings:
+    {mood}
+
+    {characterId}'s Goals:
+    {objectives}
+
+    {characterId}'s Memories:
+    {memory}
+
+    Conversation History:
+    {history}
+
+    {sender}: {input}
+
+    ### Response:
+    {characterId}:
+"

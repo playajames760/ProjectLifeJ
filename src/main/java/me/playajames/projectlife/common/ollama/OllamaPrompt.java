@@ -12,5 +12,8 @@ public interface OllamaPrompt {
     List<String> getMessages();
     void addMessage(String message);
     void trimMessages();
-
+    void setScenario(String scenario);
+    void setAppearance(String appearance);
+    void setMood(String mood);
+    int getGenerateEmotionCountMax();
 }

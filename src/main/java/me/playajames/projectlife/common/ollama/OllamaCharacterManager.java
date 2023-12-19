@@ -1,8 +1,8 @@
 package me.playajames.projectlife.common.ollama;
 
 import me.playajames.projectlife.ProjectLife;
-import org.bukkit.Bukkit;
 
+import java.util.Enumeration;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class OllamaCharacterManager {
@@ -42,6 +42,10 @@ public class OllamaCharacterManager {
      */
     public static OllamaCharacter getCharacter(String characterId) {
             return characterMap.get(characterId);
+    }
+
+    public static Enumeration<String> getCharacters() {
+            return characterMap.keys();
     }
 
 }
